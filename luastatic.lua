@@ -71,13 +71,14 @@ end
 local function is_binary_library(extension)
 	return 
 		-- Object file.
-		extension == "o" or 
+		extension == "o" or
 		-- Static library.
-		extension == "a" or 
+		extension == "a" or
 		-- Shared library.
 		extension == "so" or
 		-- Mach-O dynamic library.
-		extension == "dylib"
+		extension == "dylib" or
+		extension == "dll"
 end
 
 -- Required Lua source files.
