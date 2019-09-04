@@ -143,13 +143,16 @@ for _, name in ipairs(arg) do
 				end
 			else
 				for luaopen in nmout:gmatch("[^dD] _?luaopen_([%a%p%d]+)") do
-					local modinfo = {}
-					modinfo.path = info.path
-					modinfo.dotpath_underscore = luaopen
-					modinfo.dotpath = modinfo.dotpath_underscore:gsub("_", ".")
-					modinfo.dotpath_noextension = modinfo.dotpath
-					is_module = true
-					table.insert(module_library_files, modinfo)
+					local modname = info.dotpath:gsub(".[^.]-$", ""):gsub(".*%.", "")
+					if luaopen:find(modname) then
+						local modinfo = {}
+						modinfo.path = info.path
+						modinfo.dotpath_underscore = luaopen
+						modinfo.dotpath = modinfo.dotpath_underscore:gsub("_", ".")
+						modinfo.dotpath_noextension = modinfo.dotpath
+						is_module = true
+						table.insert(module_library_files, modinfo)
+					end
 				end
 			end
 			if is_module then
